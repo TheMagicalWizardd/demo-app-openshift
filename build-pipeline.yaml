@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: build-demo-app
+  namespace: cicd
+spec:
+  workspaces:
+    - name: shared-workspace
+
+  tasks:
+    - name: build-image
+      taskSpec:
+        workspaces:
+          - name: source
+
+        steps:
+          - name: build
+            image: quay.io/buildah/stable
+            securityContext:
+              privileged: true
+            workingDir: $(workspaces.source.path)
+
+            script: |
+              buildah bud -t image-registry.openshift-image-registry.svc:5000/app-dev/demo-app:latest .
+              buildah push --tls-verify=false image-registry.openshift-image-registry.svc:5000/app-dev/demo-app:latest

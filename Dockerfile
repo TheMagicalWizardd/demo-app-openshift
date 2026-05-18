@@ -1,2 +1,2 @@
-FROM nginx:alpine
-COPY index.html /usr/share/nginx/html/index.html
+FROM registry.access.redhat.com/ubi9/httpd-24
+COPY index.html /var/www/html/index.html

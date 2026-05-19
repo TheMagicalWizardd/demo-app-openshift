@@ -1,0 +1,79 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: real-cicd-pipeline
+  namespace: cicd
+spec:
+  params:
+    - name: repo-url
+      type: string
+    - name: image-url
+      type: string
+
+  workspaces:
+    - name: shared-workspace
+
+  tasks:
+    - name: clone-repo
+      taskSpec:
+        params:
+          - name: repo-url
+        workspaces:
+          - name: output
+        steps:
+          - name: clone
+            image: alpine/git
+            script: |
+              rm -rf $(workspaces.output.path)/source
+              git clone $(params.repo-url) $(workspaces.output.path)/source
+      params:
+        - name: repo-url
+          value: $(params.repo-url)
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+
+    - name: build-and-push
+      runAfter:
+        - clone-repo
+      taskSpec:
+        params:
+          - name: image-url
+        workspaces:
+          - name: source
+        steps:
+          - name: build
+            image: quay.io/buildah/stable
+            securityContext:
+              privileged: true
+            workingDir: $(workspaces.source.path)/source
+            script: |
+              buildah bud -t $(params.image-url) .
+              buildah push --tls-verify=false $(params.image-url)
+      params:
+        - name: image-url
+          value: $(params.image-url)
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+
+    - name: deploy
+      runAfter:
+        - build-and-push
+      taskSpec:
+        params:
+          - name: image-url
+        steps:
+          - name: deploy
+            image: registry.redhat.io/openshift4/ose-cli
+            script: |
+              oc project app-dev
+              oc delete deployment demo-app --ignore-not-found=true
+              oc delete svc demo-app --ignore-not-found=true
+              oc delete route demo-app --ignore-not-found=true
+              oc create deployment demo-app --image=$(params.image-url)
+              oc expose deployment demo-app --port=8080
+              oc expose svc demo-app
+      params:
+        - name: image-url
+          value: $(params.image-url)

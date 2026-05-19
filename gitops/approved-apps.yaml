@@ -6,4 +6,6 @@ metadata:
 data:
   apps.json: "{\n  \"demo-webapp\": {\n    \"image\": \"image-registry.openshift-image-registry.svc:5000/app-dev/demo-webapp:v1\"\
     ,\n    \"description\": \"Demo webapp voor studenten\",\n    \"port\": 8080,\n\
-    \    \"version\": \"v1\"\n  }\n}\n"
+    \    \"version\": \"v1\"\n  },\n  \"demo-api\": {\n    \"image\": \"image-registry.openshift-image-registry.svc:5000/app-dev/demo-api:v1\"\
+    ,\n    \"description\": \"Demo API voor studenten\",\n    \"port\": 8080,\n  \
+    \  \"version\": \"v1\"\n  }\n}\n"

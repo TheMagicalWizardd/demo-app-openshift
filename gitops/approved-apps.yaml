@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: approved-apps
+  namespace: portal-infra
+data:
+  apps.json: |
+    {}

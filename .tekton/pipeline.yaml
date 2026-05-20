@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  annotations:
+    pipelinesascode.tekton.dev/on-event: "[push]"
+    pipelinesascode.tekton.dev/on-target-branch: "[main]"
+spec:
+  pipelineRef:
+    name: build-and-approve-app
+  params:
+    - name: repo-url
+      value: "{{ repo_url }}"
+    - name: app-name
+      value: demo-webapp
+    - name: app-path
+      value: apps/demo-webapp
+    - name: version
+      value: v1
+    - name: description
+      value: Demo webapp voor studenten

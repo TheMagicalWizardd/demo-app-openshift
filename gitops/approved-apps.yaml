@@ -10,4 +10,6 @@ data:
     ,\n    \"description\": \"Demo API voor studenten\",\n    \"port\": 8080,\n  \
     \  \"version\": \"v1\"\n  },\n  \"demo-dashboard\": {\n    \"image\": \"image-registry.openshift-image-registry.svc:5000/app-dev/demo-dashboard:v1\"\
     ,\n    \"description\": \"Demo dashboard voor studenten\",\n    \"port\": 8080,\n\
-    \    \"version\": \"v1\"\n  }\n}\n"
+    \    \"version\": \"v1\"\n  },\n  \"demo-notes\": {\n    \"image\": \"image-registry.openshift-image-registry.svc:5000/app-dev/demo-notes:v12\"\
+    ,\n    \"description\": \"Demo notes applicatie voor studenten\",\n    \"port\"\
+    : 8080,\n    \"version\": \"v12\"\n  }\n}\n"

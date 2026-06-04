@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: approve-demo-university-
+  namespace: cicd
+spec:
+  pipelineRef:
+    name: build-and-approve-app
+  params:
+    - name: repo-url
+      value: https://github.com/TheMagicalWizardd/demo-app-openshift.git
+    - name: app-name
+      value: demo-university
+    - name: app-path
+      value: apps/demo-university
+    - name: version
+      value: v1
+    - name: description
+      value: Demo universiteitsapplicatie voor studenten
+    - name: port
+      value: "8080"
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+        claimName: pipeline-pvc

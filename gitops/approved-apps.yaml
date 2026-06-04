@@ -4,12 +4,24 @@ metadata:
   name: approved-apps
   namespace: portal-infra
 data:
-  apps.json: "{\n  \"demo-webapp\": {\n    \"image\": \"image-registry.openshift-image-registry.svc:5000/app-dev/demo-webapp:v5\"\
-    ,\n    \"description\": \"Demo webapp voor studenten\",\n    \"port\": 8080,\n\
-    \    \"version\": \"v5\"\n  },\n  \"demo-api\": {\n    \"image\": \"image-registry.openshift-image-registry.svc:5000/app-dev/demo-api:v1\"\
-    ,\n    \"description\": \"Demo API voor studenten\",\n    \"port\": 8080,\n  \
-    \  \"version\": \"v1\"\n  },\n  \"demo-dashboard\": {\n    \"image\": \"image-registry.openshift-image-registry.svc:5000/app-dev/demo-dashboard:v1\"\
-    ,\n    \"description\": \"Demo dashboard voor studenten\",\n    \"port\": 8080,\n\
-    \    \"version\": \"v1\"\n  },\n  \"demo-calculator\": {\n    \"image\": \"image-registry.openshift-image-registry.svc:5000/app-dev/demo-calculator:v1\"\
-    ,\n    \"description\": \"Demo calculator applicatie voor studenten\",\n    \"\
-    port\": 8080,\n    \"version\": \"v1\"\n  }\n}\n"
+  apps.json: |
+    {
+      "demo-webapp": {
+        "image": "image-registry.openshift-image-registry.svc:5000/app-dev/demo-webapp:v5",
+        "description": "Demo webapp voor studenten",
+        "port": 8080,
+        "version": "v5"
+      },
+      "demo-api": {
+        "image": "image-registry.openshift-image-registry.svc:5000/app-dev/demo-api:v1",
+        "description": "Demo API voor studenten",
+        "port": 8080,
+        "version": "v1"
+      },
+      "demo-dashboard": {
+        "image": "image-registry.openshift-image-registry.svc:5000/app-dev/demo-dashboard:v1",
+        "description": "Demo dashboard voor studenten",
+        "port": 8080,
+        "version": "v1"
+      }
+    }

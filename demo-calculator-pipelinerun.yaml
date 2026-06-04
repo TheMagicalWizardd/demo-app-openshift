@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: approve-demo-calculator-
+  namespace: cicd
+spec:
+  pipelineRef:
+    name: build-and-approve-app
+  params:
+    - name: repo-url
+      value: https://github.com/TheMagicalWizardd/demo-app-openshift.git
+    - name: app-name
+      value: demo-calculator
+    - name: app-path
+      value: apps/demo-calculator
+    - name: version
+      value: v1
+    - name: description
+      value: Demo calculator applicatie voor studenten
+    - name: port
+      value: "8080"
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+        claimName: pipeline-pvc
